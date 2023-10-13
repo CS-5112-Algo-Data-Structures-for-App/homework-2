@@ -13,7 +13,7 @@ def maxsum_tree(vertices, adjacency) -> int:
             with_out_node = sum(max_sum_func(child, False, dp) for child in adjacency[node])
             node_max = max(with_node,with_out_node)
     	else:
-            node_max = sum(max_sum_func(child, 0, dp) for child in adjacency[node])
+            node_max = sum(max_sum_func(child, False, dp) for child in adjacency[node])
     
     	dp[(node, parent_selected)] = node_max
     	return node_max

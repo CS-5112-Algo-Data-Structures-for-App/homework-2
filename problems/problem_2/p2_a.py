@@ -8,14 +8,14 @@ def d(point1, point2):
     return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 
 def closest_pair(points):
+    n_points = len(points)
     min_points = [(0,0),(0,0)]
     min_distance = float('inf')
-    for point_1 in points:
-        for point_2 in points:
-            if point_1 != point_2:
-                if d(point_1,point_2) < min_distance:
-                    min_points = [point_1,point_2]
-                    min_distance = d(point_1,point_2)
+    for i in range(n_points):
+        for j in range(i+1, n_points):
+            if d(points[i],points[j]) < min_distance:
+                min_points = [points[i],points[j]]
+                min_distance = d(points[i],points[j])
 
     return min_points
 

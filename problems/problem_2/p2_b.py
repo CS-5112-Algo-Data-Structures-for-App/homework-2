@@ -8,58 +8,94 @@ def d(point1, point2):
     return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 
 def closest_pair(points):
-     
-    def p2_a(points):
-        n_points = len(points)
-        min_points = [(0,0),(0,0)]
-        min_distance = float('inf')
-        for i in range(n_points):
-            for j in range(i+1, n_points):
-                if d(points[i],points[j]) < min_distance:
-                    min_points = [points[i],points[j]]
-                    min_distance = d(points[i],points[j])
-    
-        return min_points, min_distance
-     
-     
-    def divide_and_conqure(points_sorted, n):
-        if n <= 3:
-            return p2_a(points_sorted)
+    def min_strip(strip, min_distance, min_pair):
 
-        mid_point = points_sorted[n//2] 
-        
-        left_points, left_distance = divide_and_conqure(points_sorted, n//2)
-        right_points, right_distance = divide_and_conqure(points_sorted[n//2:], n - n//2)
-
-        if right_distance > left_distance:
-            min_points = left_points
-            min_distance = left_distance
-        else:
-            min_points = right_points
-            min_distance = right_distance
-        
-        strip = []
-        
-        for i in range(n):
-            if abs(points_sorted[i][0] - mid_point[0]) < min_distance:
-                strip.append(points_sorted[i])
-
-        strip = sorted(strip, key=lambda x: x[1])
-        
+        strip = merge_sort(strip, 'x')
+     
         for i in range(len(strip)):
             for j in range(i+1, len(strip)):
                 if (strip[j][1] - strip[i][1]) >= min_distance:
                     break
-                    
                 if d(strip[i], strip[j]) < min_distance:
                     min_distance = d(strip[i], strip[j])
-                    min_points = [strip[i], strip[j]]
-
-        return (min_points, min_distance)
-     
-    points_sorted = sorted(points, key=lambda x: x[0])
-
-    min_points, min_distance = divide_and_conqure(points_sorted, len(points))
-
-    return min_points
+                    min_pair = (strip[i], strip[j])
+        return min_distance, min_pair
+    
+    def closest_pair_calc(points):
+        if len(points) <= 3:
+            min_distance = float('inf')
+            min_points = None
+            for i in range(len(points)):
+                for j in range(i + 1, len(points)):
+                    if d(points[i], points[j]) < min_distance:
+                        min_distance = d(points[i], points[j])
+                        min_points = (points[i], points[j])
+            return min_distance, min_points
+        
+        points = merge_sort(points, 'y')
+    
+        mid_idx = len(points) // 2
+        mid_point = points[mid_idx]
+        left_points = points[:mid_idx]
+        right_points = points[mid_idx:]
+        left_distance, left_points = closest_pair_calc(left_points)
+        right_distance, right_points = closest_pair_calc(right_points)
+    
+        min_points = None
+        
+        if left_distance < right_distance:
+            min_dist = left_distance
+            min_points = left_points
+        else:
+            min_dist = right_distance
+            min_points = right_points
+        
+        strip = []
+        for i in range(len(points)):
+            if abs(points[i][0] - mid_point[0]) < min_dist:
+                strip.append(points[i])
+    
+        strip_distance, strip_pair = min_strip(strip, min_dist, min_points)
+        
+        if strip_distance < min_dist:
+            return strip_distance, strip_pair
+        else:
+            return min_dist, min_points
+    
+    def merge_sort(points, axis):
+        if len(points) <= 1:
+            return points
+        
+        if axis == 'x':
+            axis = 0
+        else:
+            axis = 1
+        
+        mid_idx = len(points) // 2
+        left_lst = merge_sort(points[:mid_idx], axis)
+        right_lst = merge_sort(points[mid_idx:], axis)
+    
+        i = 0
+        j = 0
+        sorted_lst = []
+        
+        while i < len(left_lst) and j < len(right_lst):
+            if left_lst[i][axis] < right_lst[j][axis]:
+                sorted_lst.append(left_lst[i])
+                i += 1
+            else:
+                sorted_lst.append(right_lst[j])
+                j += 1
+        
+        while i < len(left_lst):
+            sorted_lst.append(left_lst[i])
+            i += 1
+    
+        while j < len(right_lst):
+            sorted_lst.append(right_lst[j])
+            j += 1
+        
+        return sorted_lst
+        
+    return closest_pair_calc(points)[1]
     

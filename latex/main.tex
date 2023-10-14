@@ -3,9 +3,9 @@
 \usepackage{enumitem}
 
 % STUDENTS: Please fill these out with your information
-\newcommand{\name}{Fill Here}
-\newcommand{\netid}{Fill Here}
-\newcommand{\collaborators}{Fill Here}
+\newcommand{\name}{Matthew Shen}
+\newcommand{\netid}{mds377}
+\newcommand{\collaborators}{Hau Chu(hc793)}
 % / STUDENT
 
 \newcommand{\hwnum}{2}
@@ -45,7 +45,13 @@ Adjacent elements of the sequences are next to each other: $x_i$ and $x_{i+1}$.
 Example: $\text{maxsum\_list}([2,1,3,4]) = 6$.
 
 \begin{solution}
-Please answer here.
+The following problem is a memoization problem. This is because we are looking at previously calculated max sum lists and determining if they can be improved upon as we go through the input list. We can think of the maximum sum of non-adjacent values in terms of looping through the entire list. As we go through the list the maximum sum of non-adjacent value is either the sum of our pointer and the previously calculated maximum sum of non-adjacent values or the value directly before our pointer. 
+
+To start off we need to set up a series of edge cases. This includes when an empty list is given, a list with a single value is given, and a list with only two values is given. In these scenarios we return 0, the single value, and the maximum of the two values respectively. Next, we loop through the list and at each index we loop at which is larger, the previously stored value or the current value plus the value stored two indexes ago.
+
+Once we fully loop through the list we can then return the last value.
+
+
 \end{solution}
 
 \begin{subproblem}
@@ -74,7 +80,11 @@ Example: $\text{maxsum\_tree}(\text{values} = \{2: 2, 1:1, 3:3, 4:4\}, \text{adj
 \end{problem}
 
 \begin{solution}
-Please answer here.
+For this problem memorization was also used. First the algorithm finds the root of the tree by looking for the node that is not a child of any other node. Next, a list is initialized that contains tuples. Each tuple has a node and whether or not the parent of that node is selected to be the max sum.
+
+We start at the root node and first determine if the part node is selected. If the parent node is selected we then recursively calculate the max sum for if the node is part of the max sum and if the node is not part of the max sum. The larger of the two values is then selected. If the parent is already part of the max sum then we just need to calculate the max sum for all the children of that node. 
+
+This information is then stored in the previously initialized list.
 \end{solution}
 
 \newpage
@@ -118,7 +128,18 @@ Please answer here.
 \end{problem}
 
 \begin{solution}
-Please answer here.
+For the empirical performance analysis the environment was:
+        \begin{itemize}
+            \item CPU: Intel(R) Core(TM) i7-8500Y CPU @ 1.50GHz (4 threads, 4.20GHz)
+            \item OS \& Version: Debian GNU/Linux 11 (bullseye)
+            \item Memory: 15.53 GB
+        \end{itemize}
+            
+        The graph from the empirical performance analysis can be seen below:
+\begin{figure}[ht]
+  \centering
+      \includegraphics[width=0.5\textwidth]{figures/problem-1c.png}
+\end{figure}
 \end{solution}
 \newpage
 

@@ -37,7 +37,7 @@ class LinkedList:
     def delete(self, x):
         base = self.root
         while base != None:
-            if base.val == x:
+            if self.root.val == x:
                 self.root = base.next
                 return
             if base.next == None:

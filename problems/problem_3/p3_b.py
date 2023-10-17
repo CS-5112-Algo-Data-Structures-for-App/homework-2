@@ -34,13 +34,13 @@ class SkipList:
         current_node = update_nodes_lst[0]
         
         for i in range(self.max_level - 1, -1, -1):
-            while current_node.next[i] is not None:
-                if current_node.next[i].val < x:
-                    current_node = current_node.next[i]
+            while (current_node.next[i]) and (current_node.next[i].val < x):
+                current_node = current_node.next[i]
                 
             update_nodes_lst[i] = current_node
             
         current_level_int = self.random_level()
+        
         new_node = Node(x, current_level_int)
         
         for j in range(0,current_level_int):
@@ -48,7 +48,9 @@ class SkipList:
             
             update_nodes_lst[j].next[j] = new_node
 
-        if (not self.root) or (self.root.val > x):
+        if (not self.root):
+            self.root = new_node
+        elif self.root.val > x:
             self.root = new_node
 
 
@@ -60,9 +62,8 @@ class SkipList:
         current_node = update_nodes_lst[0]
         
         for i in range(self.max_level - 1, -1, -1):
-            if current_node.next[i] is not None:
-                while current_node.next[i].val < x:
-                    current_node = current_node.next[i]
+            while (current_node.next[i]) and (current_node.next[i].val < x):
+                current_node = current_node.next[i]
                 
             update_nodes_lst[i] = current_node
 
@@ -85,11 +86,10 @@ class SkipList:
         current_node = self.sentinel
         
         for i in range(self.max_level - 1, -1, -1):
-            if current_node.next[i] is not None:
-                while current_node.next[i].val < x:
-                    current_node = current_node.next[i]
+            while (current_node.next[i]) and (current_node.next[i].val < x):
+                current_node = current_node.next[i]
 
-        if (current_node.next[0]) is not None:
+        if current_node.next[0] is not None:
             if (current_node.next[0].val == x):
                 return current_node.next[0]
             else:
@@ -97,3 +97,8 @@ class SkipList:
         else:
             return None
 
+if __name__ == "__main__":
+    s = SkipList(2, 0.2)
+    s.insert(0,1)
+
+    s.root.val()

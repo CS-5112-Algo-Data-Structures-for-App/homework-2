@@ -138,7 +138,7 @@ For the empirical performance analysis the environment was:
         The graph from the empirical performance analysis can be seen below:
 \begin{figure}[ht]
   \centering
-      \includegraphics[width=0.5\textwidth]{figures/problem-3.png}
+      \includegraphics[width=0.5\textwidth]{figures/problem-2.png}
 \end{figure}
 From the graph we can see that initially the brute force method is the fastest; however, over time the the randomized algorithm and the divide and conquer algorithm becomes much faster.
 \end{solution}
@@ -173,7 +173,7 @@ The linked list must always be in sorted order and all elements will be ints.
 Include your implementation in \texttt{problem\_3/p3\_a.py}.
 \end{subproblem}
 \begin{solution}
-Please answer here.
+For a linked list class searching for a variable will have a time complexity of $O(n)$. This is because you need to look through every variable in the list to find the one you are looking for. The time complexity of insertion is also $O(n)$. This is because at worst you are inserting the final value and have already looped through the entire linked list. Finally, the time complexity of deleting a value is $O(n)$. This is because in the worst case you are deleting the last value and you will have searched through the entire list.
 \end{solution}
 
 
@@ -184,7 +184,20 @@ Perform an empirical analysis of insertion in skip lists versus the linked list 
 Include your implementation in \texttt{problem\_3/p3\_b.py}.
 \end{subproblem}
 \begin{solution}
-Please answer here.
+For the empirical performance analysis the environment was:
+        \begin{itemize}
+            \item CPU: Intel(R) Core(TM) i7-8500Y CPU @ 1.50GHz (4 threads, 4.20GHz)
+            \item OS \& Version: Debian GNU/Linux 11 (bullseye)
+            \item Memory: 15.53 GB
+        \end{itemize}
+            
+        The graph from the empirical performance analysis can be seen below:
+\begin{figure}[ht]
+  \centering
+      \includegraphics[width=0.5\textwidth]{figures/problem-3b.png}
+\end{figure}
+
+In the figure above we see that at the beginning the $O(n)$ algorithm runs faster; however, as the size of the list increases the $O(nlogn)$ is much faster. From a time complexity standpoint this does not make sense because $O(n)$ should be faster, but with the skip list, the majority of the time the algorithm is able to insert a value in less than $O(n)$. This means that in the later runs with bigger data sets, the $O(nlogn)$ is faster on average because it is unlikely it will face its worst case scenario.
 \end{solution}
 
 
@@ -196,7 +209,20 @@ Perform an empirical analysis of search in skip lists versus the linked list bas
 Include your implementation in \texttt{problem\_3/p3\_b.py}.
 \end{subproblem}
 \begin{solution}
-Please answer here.
+For the empirical performance analysis the environment was:
+        \begin{itemize}
+            \item CPU: Intel(R) Core(TM) i7-8500Y CPU @ 1.50GHz (4 threads, 4.20GHz)
+            \item OS \& Version: Debian GNU/Linux 11 (bullseye)
+            \item Memory: 15.53 GB
+        \end{itemize}
+            
+        The graph from the empirical performance analysis can be seen below:
+\begin{figure}[ht]
+  \centering
+      \includegraphics[width=0.5\textwidth]{figures/problem-3c.png}
+\end{figure}
+
+Similarly to part b, we see that at the beginning the $O(n)$ algorithm runs faster; however, as the size of the list increases the $O(nlogn)$ is much faster. As previously stated, the $O(n)$ algorithm is running at a slower speed than the $O(nlogn)$ because when the worst case scenario is not met, the average time needed to complete the $O(nlogn)$ algorithm is much faster.
 \end{solution}
 
 
@@ -207,7 +233,20 @@ Perform an empirical analysis of deletion in skip lists versus the linked list b
 Include your implementation in \texttt{problem\_3/p3\_b.py}.
 \end{subproblem}
 \begin{solution}
-Please answer here.
+For the empirical performance analysis the environment was:
+        \begin{itemize}
+            \item CPU: Intel(R) Core(TM) i7-8500Y CPU @ 1.50GHz (4 threads, 4.20GHz)
+            \item OS \& Version: Debian GNU/Linux 11 (bullseye)
+            \item Memory: 15.53 GB
+        \end{itemize}
+            
+        The graph from the empirical performance analysis can be seen below:
+\begin{figure}[ht]
+  \centering
+      \includegraphics[width=0.5\textwidth]{figures/problem-3d.png}
+\end{figure}
+
+Similarly to part b and c, we see that at the beginning the $O(n)$ algorithm runs faster; however, as the size of the list increases the $O(nlogn)$ is much faster. Once again, this is an example of how the average run time is much faster for the $O(nlogn)$ while the worst case run time is faster for the $O(n)$ algorithm.
 \end{solution}
 
 
